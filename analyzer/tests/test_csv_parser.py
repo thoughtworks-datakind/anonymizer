@@ -1,4 +1,4 @@
-import csv_parser
+from context import csv_parser
 import unittest
 
 class TestCsvParser(unittest.TestCase) : 
@@ -7,4 +7,8 @@ class TestCsvParser(unittest.TestCase) :
         self.assertRaises(FileNotFoundError, lambda: csv_parser.parse("")) 
 
     def test_if_file_not_present_throws_error(self) : 
-        self.assertRaises(FileNotFoundError, lambda: csv_parser.parse("invalid_file_path"))    
+        self.assertRaises(FileNotFoundError, lambda: csv_parser.parse("invalid_file_path"))
+
+
+if __name__ == '__main__':
+    unittest.main()
