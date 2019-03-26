@@ -8,4 +8,4 @@ From the project directory, run setup script - ./bin/setup_venv_locally.sh
 source bin/color_my_terminal.sh
 
 ## For running tests in watch mode and with colored output
-nosetests --with-watch --rednose
+nosetests --with-watch -v --rednose
