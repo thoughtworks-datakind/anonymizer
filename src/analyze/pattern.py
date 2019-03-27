@@ -4,16 +4,29 @@ class Pattern:
         self.regex_string = ""
 
     def range(self, from_char, to_char):
+        if len(from_char) != 1 or len(to_char) != 1:
+            raise ValueError
+
         self.regex_string += "[" + from_char + "-" + to_char + "]"
+        return self
 
     def one_of(self, chars):
+        if chars is None or chars == "":
+            raise ValueError
+
         self.regex_string += "[" + chars + "]"
+        return self
 
     def any_digit(self):
         self.regex_string += "\\d"
+        return self
 
     def num_occurrences(self, number):
-        self.regex_string += "{" + number + "}"
+        if number < 1:
+            raise ValueError
+
+        self.regex_string += "{" + str(number) + "}"
+        return self
 
     def build(self):
         return self.regex_string
