@@ -4,7 +4,7 @@ class Pattern:
         self.regex_string = ""
 
     def range(self, from_char, to_char):
-        if len(from_char) != 1 or len(to_char) != 1:
+        if len(from_char) != 1 or len(to_char) != 1 or from_char > to_char:
             raise ValueError
 
         self.regex_string += "[" + from_char + "-" + to_char + "]"

@@ -31,6 +31,12 @@ class TestPattern(TestCase):
         self.assertRaises(ValueError, lambda: Pattern().range("0", "").build())
         self.assertRaises(ValueError, lambda: Pattern().range("01", "9").build())
         self.assertRaises(ValueError, lambda: Pattern().range("A", "YZ").build())
+        self.assertRaises(ValueError, lambda: Pattern().range("B", "A").build())
+        self.assertRaises(ValueError, lambda: Pattern().range("9", "0").build())
+
+    def test_when_valid_input_is_passed_range_returns_correct_output(self):
+        self.assertEqual("[A-Z]", Pattern().range("A", "Z").build())
+        self.assertEqual("[0-9]", Pattern().range("0", "9").build())
 
     # Testing complex inputs
     def test_builds_correct_pattern_for_NRIC(self):
