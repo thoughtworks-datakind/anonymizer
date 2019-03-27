@@ -38,10 +38,19 @@ class TestRegEx(TestCase):
         self.assertEqual("[A-Z]", RegEx().range("A", "Z").build())
         self.assertEqual("[0-9]", RegEx().range("0", "9").build())
 
+    # Testing one_or_more_occurrences
+    def test_when_valid_input_is_passed_one_or_more_occurrences_returns_correct_output(self):
+        self.assertEqual("+", RegEx().one_or_more_occurrences().build())
+
+    # Testing literal
+    def test_when_valid_input_is_passed_literal_returns_correct_output(self):
+        self.assertEqual("@", RegEx().literal("@").build())
+
     # Testing complex inputs
     def test_builds_correct_pattern_for_NRIC(self):
         self.assertEqual("[AIR]\\d{7}[A-Z]",
-                         RegEx().one_of("AIR")
+                         RegEx()
+                         .one_of("AIR")
                          .any_digit()
                          .num_occurrences(7)
                          .range("A", "Z")
