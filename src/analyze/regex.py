@@ -1,4 +1,4 @@
-class Pattern:
+class RegEx:
 
     def __init__(self):
         self.regex_string = ""
@@ -26,6 +26,14 @@ class Pattern:
             raise ValueError
 
         self.regex_string += "{" + str(number) + "}"
+        return self
+
+    def one_or_more_occurrences(self):
+        self.regex_string += "+"
+        return self
+
+    def literal(self, literal):
+        self.regex_string += literal
         return self
 
     def build(self):
