@@ -5,7 +5,7 @@ from analyze.regex import RegEx
 class NRICDetector(BaseDetector):
 
     def __init__(self):
-        self.name = "nric"
+        self.name = "NRIC"
         self.pattern = RegEx().one_of("STFG").any_digit().num_occurrences(7).range("A", "Z").build()
 
     def validate(self, text):
