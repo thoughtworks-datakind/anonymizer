@@ -11,7 +11,7 @@ class Pattern:
         return self
 
     def one_of(self, chars):
-        if chars is None or chars == "":
+        if chars is None or len(chars) <= 1:
             raise ValueError
 
         self.regex_string += "[" + chars + "]"
