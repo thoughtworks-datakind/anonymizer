@@ -1,6 +1,7 @@
 import re
 from analyze.national_id_detector import NationalIdDetector
 from analyze.email_detector import EmailDetector
+from analyze.analyzer_result import AnalyzerResult
 
 
 class PIIDetector:
@@ -20,6 +21,6 @@ class PIIDetector:
                 matching_text = text[start:end]
                 if not detector.validate(matching_text):
                     continue
-                results.append("The text {} at position({},{}) was identified as {}".format(matching_text, start, end, detector.name))
+                results.append(AnalyzerResult(matching_text, detector.name, start, end))
 
         return results
