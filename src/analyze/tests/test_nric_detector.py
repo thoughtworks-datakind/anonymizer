@@ -8,7 +8,7 @@ class TestNRICDetector(TestCase):
         self.nric_detector = NRICDetector()
 
     def test_default_property_values_are_correct(self):
-        self.assertEqual("nric", self.nric_detector.name)
+        self.assertEqual("NRIC", self.nric_detector.name)
         self.assertEqual("[STFG]\\d{7}[A-Z]", self.nric_detector.pattern)
 
     def test_additional_checks_should_return_true_when_given_valid_input(self):
