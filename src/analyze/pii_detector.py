@@ -1,5 +1,5 @@
 import re
-from analyze.nric_detector import NRICDetector
+from analyze.national_id_detector import NationalIdDetector
 from analyze.email_detector import EmailDetector
 
 
@@ -11,7 +11,7 @@ class PIIDetector:
     @staticmethod
     def analyze(text):
         results = []
-        detectors = [NRICDetector(), EmailDetector()]
+        detectors = [NationalIdDetector(), EmailDetector()]
 
         for detector in detectors:
             matches = re.finditer(detector.pattern, text)
