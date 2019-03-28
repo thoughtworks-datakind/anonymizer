@@ -38,6 +38,15 @@ class TestRegEx(TestCase):
         self.assertEqual("[A-Z]", RegEx().range("A", "Z").build())
         self.assertEqual("[0-9]", RegEx().range("0", "9").build())
 
+    # Testing range_occurrences
+    def test_when_invalid_input_for_range_occurrences_throws_error(self):
+        self.assertRaises(ValueError, lambda: RegEx().range_occurrences(9, 0).build())
+        self.assertRaises(TypeError, lambda: RegEx().range_occurrences(1.2, 2).build())
+        self.assertRaises(TypeError, lambda: RegEx().range_occurrences("A", 9).build())
+
+    def test_when_valid_input_is_passed_range_occurrences_returns_correct_output(self):
+        self.assertEqual("{0-9}", RegEx().range_occurrences(0, 9).build())
+
     # Testing one_or_more_occurrences
     def test_when_valid_input_is_passed_one_or_more_occurrences_returns_correct_output(self):
         self.assertEqual("+", RegEx().one_or_more_occurrences().build())

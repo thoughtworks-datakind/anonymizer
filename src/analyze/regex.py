@@ -40,6 +40,16 @@ class RegEx:
         self.regex_string += "?"
         return self
 
+    def range_occurrences(self, start, end):
+        if not isinstance(start, int) or not isinstance(end, int):
+            raise TypeError
+
+        if start >= end:
+            raise ValueError
+
+        self.regex_string += "{" + str(start) + "-" + str(end) + "}"
+        return self
+
     def literal(self, literal):
         self.regex_string += literal
         return self
