@@ -42,6 +42,14 @@ class TestRegEx(TestCase):
     def test_when_valid_input_is_passed_one_or_more_occurrences_returns_correct_output(self):
         self.assertEqual("+", RegEx().one_or_more_occurrences().build())
 
+    # Testing zero_or_more_occurrences
+    def test_when_valid_input_is_passed_zero_or_more_occurrences_returns_correct_output(self):
+        self.assertEqual("*", RegEx().zero_or_more_occurrences().build())
+
+    # Testing zero_or_one_occurrences
+    def test_when_valid_input_is_passed_zero_or_one_occurrences_returns_correct_output(self):
+        self.assertEqual("?", RegEx().zero_or_one_occurrences().build())
+
     # Testing literal
     def test_when_valid_input_is_passed_literal_returns_correct_output(self):
         self.assertEqual("@", RegEx().literal("@").build())

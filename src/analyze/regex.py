@@ -32,6 +32,14 @@ class RegEx:
         self.regex_string += "+"
         return self
 
+    def zero_or_more_occurrences(self):
+        self.regex_string += "*"
+        return self
+
+    def zero_or_one_occurrences(self):
+        self.regex_string += "?"
+        return self
+
     def literal(self, literal):
         self.regex_string += literal
         return self
