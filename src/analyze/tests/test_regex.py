@@ -25,24 +25,42 @@ class TestRegEx(TestCase):
     def test_when_any_digit_returns_correct_output(self):
         self.assertEqual("\\d", RegEx().any_digit().build())
 
+    def __assert_value_error_is_raised(self, fn, msg):
+        with self.assertRaises(ValueError) as ve:
+            fn()
+        self.assertEqual(str(ve.exception), msg)
+
+    def __assert_type_error_is_raised(self, fn, msg):
+        with self.assertRaises(TypeError) as ve:
+            fn()
+        self.assertEqual(str(ve.exception), msg)
+
     # Testing range
-    def test_when_invalid_input_for_range_throws_error(self):
-        self.assertRaises(ValueError, lambda: RegEx().range("", "Z").build())
-        self.assertRaises(ValueError, lambda: RegEx().range("0", "").build())
-        self.assertRaises(ValueError, lambda: RegEx().range("01", "9").build())
-        self.assertRaises(ValueError, lambda: RegEx().range("A", "YZ").build())
-        self.assertRaises(ValueError, lambda: RegEx().range("B", "A").build())
-        self.assertRaises(ValueError, lambda: RegEx().range("9", "0").build())
+    def test_when_range_is_incomplete(self):
+        single_character = "Range boundaries should be single character"
+        self.__assert_value_error_is_raised(lambda: RegEx().range("", "Z").build(), single_character)
+        self.__assert_value_error_is_raised(lambda: RegEx().range("0", "").build(), single_character)
+        self.__assert_value_error_is_raised(lambda: RegEx().range("01", "9").build(), single_character)
+        self.__assert_value_error_is_raised(lambda: RegEx().range("A", "YZ").build(), single_character)
+
+    def test_when_invalid_range_boundaries_are_provided(self):
+        less_than_end = "Range start should be less than end"
+        self.__assert_value_error_is_raised(lambda: RegEx().range("B", "A").build(), less_than_end)
+        self.__assert_value_error_is_raised(lambda: RegEx().range("9", "0").build(), less_than_end)
 
     def test_when_valid_input_is_passed_range_returns_correct_output(self):
         self.assertEqual("[A-Z]", RegEx().range("A", "Z").build())
         self.assertEqual("[0-9]", RegEx().range("0", "9").build())
 
     # Testing range_occurrences
+    def test_when_invalid_numeric_range_boundaries_are_provided(self):
+        less_than_end = "Range start should be less than end"
+        self.__assert_value_error_is_raised(lambda: RegEx().range_occurrences(9, 0).build(), less_than_end)
+
     def test_when_invalid_input_for_range_occurrences_throws_error(self):
-        self.assertRaises(ValueError, lambda: RegEx().range_occurrences(9, 0).build())
-        self.assertRaises(TypeError, lambda: RegEx().range_occurrences(1.2, 2).build())
-        self.assertRaises(TypeError, lambda: RegEx().range_occurrences("A", 9).build())
+        range_should_be_integers = "Range should be integers"
+        self.__assert_type_error_is_raised(lambda: RegEx().range_occurrences(1.2, 2).build(), range_should_be_integers)
+        self.__assert_type_error_is_raised(lambda: RegEx().range_occurrences("A", 9).build(), range_should_be_integers)
 
     def test_when_valid_input_is_passed_range_occurrences_returns_correct_output(self):
         self.assertEqual("{0-9}", RegEx().range_occurrences(0, 9).build())
