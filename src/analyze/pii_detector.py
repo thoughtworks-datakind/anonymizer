@@ -19,9 +19,8 @@ class PIIDetector:
             matches = re.finditer(detector.pattern, text)
             for match in matches:
                 start, end = match.span()
-                matching_text = text[start:end]
-                if not detector.validate(matching_text):
-                    continue
-                results.append(AnalyzerResult(matching_text, detector.name, start, end))
+                pattern_match = text[start:end]
+                if detector.validate(pattern_match):
+                    results.append(AnalyzerResult(pattern_match, detector.name, start, end))
 
         return results
