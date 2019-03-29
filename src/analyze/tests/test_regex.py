@@ -7,7 +7,6 @@ class TestRegEx(TestCase):
     # Testing one_of
     def test_when_one_of_param_is_empty_throws_error(self):
         self.assertRaises(ValueError, lambda: RegEx().one_of("").build())
-        self.assertRaises(ValueError, lambda: RegEx().one_of("A").build())
 
     def test_when_valid_input_is_passed_one_of_returns_correct_output(self):
         self.assertEqual("[AB]", RegEx().one_of("AB").build())
@@ -63,7 +62,7 @@ class TestRegEx(TestCase):
         self.__assert_type_error_is_raised(lambda: RegEx().range_occurrences("A", 9).build(), range_should_be_integers)
 
     def test_when_valid_input_is_passed_range_occurrences_returns_correct_output(self):
-        self.assertEqual("{0-9}", RegEx().range_occurrences(0, 9).build())
+        self.assertEqual("{0,9}", RegEx().range_occurrences(0, 9).build())
 
     # Testing one_or_more_occurrences
     def test_when_valid_input_is_passed_one_or_more_occurrences_returns_correct_output(self):

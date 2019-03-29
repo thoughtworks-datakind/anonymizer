@@ -3,11 +3,11 @@ class RegEx:
     def __init__(self):
         self.regex_string = ""
 
-    def __is_numeric(self, input):
-        return isinstance(input, int)
+    def __is_numeric(self, value):
+        return isinstance(value, int)
 
-    def __is_single_character_value(self, input):
-        return len(input) == 1
+    def __is_single_character_value(self, value):
+        return len(str(value)) == 1
 
     def __validate_range(self, start, end):
         if start > end:
@@ -18,14 +18,14 @@ class RegEx:
             raise ValueError("Range boundaries should be single character")
 
         self.__validate_range(from_char, to_char)
-        self.regex_string += "[" + from_char + "-" + to_char + "]"
+        self.regex_string += "[{}-{}]".format(from_char, to_char)
         return self
 
-    def one_of(self, chars):
-        if chars is None or len(chars) <= 1:
-            raise ValueError("")
+    def one_of(self, character_set):
+        if character_set is None or character_set == "":
+            raise ValueError("Character Set should not be empty")
 
-        self.regex_string += "[" + chars + "]"
+        self.regex_string += "[" + character_set + "]"
         return self
 
     def any_digit(self):
@@ -56,7 +56,7 @@ class RegEx:
             raise TypeError("Range should be integers")
 
         self.__validate_range(start, end)
-        self.regex_string += "{" + str(start) + "-" + str(end) + "}"
+        self.regex_string += "{" + str(start) + "," + str(end) + "}"
         return self
 
     def literal(self, literal):
