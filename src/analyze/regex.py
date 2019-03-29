@@ -13,6 +13,10 @@ class RegEx:
         if start > end:
             raise ValueError("Range start should be less than end")
 
+    def pipe(self):
+        self.regex_string += "|"
+        return self
+
     def range(self, from_char, to_char):
         if not self.__is_single_character_value(from_char) or not self.__is_single_character_value(to_char):
             raise ValueError("Range boundaries should be single character")
