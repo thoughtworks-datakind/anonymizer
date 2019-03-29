@@ -1,8 +1,8 @@
 class AnalyzerResult:
 
-    def __init__(self, text, entity_type, start, end):
+    def __init__(self, text, type, start, end):
         self.text = text
-        self.type = entity_type
+        self.type = type
         self.start = start
         self.end = end
 
