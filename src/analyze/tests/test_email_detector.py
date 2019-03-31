@@ -1,5 +1,5 @@
 from unittest import TestCase
-from analyze.email_detector import EmailDetector
+from src.analyze.email_detector import EmailDetector
 
 
 class TestEmailDetector(TestCase):

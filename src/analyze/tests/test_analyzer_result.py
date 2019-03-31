@@ -1,4 +1,4 @@
-from analyze.analyzer_result import AnalyzerResult
+from src.analyze.analyzer_result import AnalyzerResult
 from unittest import TestCase
 
 

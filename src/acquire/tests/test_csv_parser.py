@@ -1,8 +1,7 @@
 from unittest import TestCase
 import os
 import pandas as pd
-
-from acquire.csv_parser import CsvParser
+from src.acquire.csv_parser import CsvParser
 
 
 class TestCsvParser(TestCase):

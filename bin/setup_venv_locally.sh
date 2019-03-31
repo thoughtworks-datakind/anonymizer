@@ -10,4 +10,4 @@ python3 -m venv ${project_path}/.venv
 source ${project_path}/.venv/bin/activate
 
 curl https://bootstrap.pypa.io/get-pip.py | python
-pip install -r requirements.txt
+pip install -r requirements-dev.txt

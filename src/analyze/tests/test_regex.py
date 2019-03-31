@@ -1,5 +1,5 @@
 from unittest import TestCase
-from analyze.regex import RegEx
+from src.analyze.regex import RegEx
 
 
 class TestRegEx(TestCase):

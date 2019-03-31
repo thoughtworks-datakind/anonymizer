@@ -1,6 +1,6 @@
 from unittest import TestCase
-from analyze.pii_detector import PIIDetector
-from analyze.analyzer_result import AnalyzerResult
+from src.analyze.pii_detector import PIIDetector
+from src.analyze.analyzer_result import AnalyzerResult
 
 
 class TestPIIDetector(TestCase):

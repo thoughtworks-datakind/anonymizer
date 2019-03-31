@@ -1,8 +1,8 @@
 import re
-from analyze.national_id_detector import NationalIdDetector
-from analyze.email_detector import EmailDetector
-from analyze.phone_number_detector import PhoneNumberDetector
-from analyze.analyzer_result import AnalyzerResult
+from src.analyze.national_id_detector import NationalIdDetector
+from src.analyze.email_detector import EmailDetector
+from src.analyze.phone_number_detector import PhoneNumberDetector
+from src.analyze.analyzer_result import AnalyzerResult
 
 
 class PIIDetector:

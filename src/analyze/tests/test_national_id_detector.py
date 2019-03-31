@@ -1,5 +1,5 @@
 from unittest import TestCase
-from analyze.national_id_detector import NationalIdDetector
+from src.analyze.national_id_detector import NationalIdDetector
 
 
 class TestNationalIdDetector(TestCase):
