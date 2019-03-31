@@ -1,3 +1,5 @@
+import re
+
 from src.analyze.base_detector import BaseDetector
 from src.analyze.regex import RegEx
 
@@ -12,3 +14,9 @@ class PhoneNumberDetector(BaseDetector):
             .range(0, 9).range_occurrences(1, 4)\
             .one_of(")").zero_or_one_occurrences()\
             .one_of("-\s\./0-9").zero_or_more_occurrences().build()
+
+    def get_name(self):
+        return self.name
+
+    def get_pattern(self):
+        return re.compile(self.pattern)

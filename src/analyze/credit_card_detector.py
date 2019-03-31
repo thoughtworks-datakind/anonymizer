@@ -1,3 +1,5 @@
+import re
+
 from src.analyze.base_detector import BaseDetector
 from src.analyze.regex import RegEx
 
@@ -17,6 +19,13 @@ class CreditCardDetector(BaseDetector):
             .any_digit().range_occurrences(3, 4) \
             .one_of("- ").zero_or_one_occurrences() \
             .any_digit().range_occurrences(3, 5).build()
+
+
+    def get_name(self):
+        return self.name
+
+    def get_pattern(self):
+        return re.compile(self.pattern)
 
     def validate(self, text):
         def digits_of(n):

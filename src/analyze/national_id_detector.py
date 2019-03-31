@@ -1,3 +1,5 @@
+import re
+
 from src.analyze.base_detector import BaseDetector
 from src.analyze.regex import RegEx
 
@@ -7,6 +9,12 @@ class NationalIdDetector(BaseDetector):
     def __init__(self):
         self.name = "NRIC"
         self.pattern = RegEx().one_of("STFG").any_digit().num_occurrences(7).range("A", "Z").build()
+
+    def get_name(self):
+        return self.name
+
+    def get_pattern(self):
+        return re.compile(self.pattern)
 
     def validate(self, text):
         first_character = text[0]
