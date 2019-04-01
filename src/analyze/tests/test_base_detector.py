@@ -4,6 +4,7 @@ from src.analyze.analyzer_result import AnalyzerResult
 from src.analyze.regex import RegEx
 from src.analyze.base_detector import BaseDetector
 
+
 class TestBaseDetector(TestCase):
 
     def setUp(self):
@@ -30,3 +31,8 @@ class TestBaseDetector(TestCase):
     def test_execute_returns_empty_list_when_no_matches(self):
         results = self.test_class.execute("First President of Singapore NRIC was ABC and the second president's was DEF")
         self.assertEqual(len(results), 0)
+
+    def test_get_name_and_get_patterns_are_abstract(self):
+        with self.assertRaises(TypeError) as te:
+            BaseDetector()
+        self.assertEqual(str(te.exception), "Can't instantiate abstract class BaseDetector with abstract methods get_name, get_pattern")
