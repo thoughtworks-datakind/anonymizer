@@ -1,11 +1,25 @@
 from unittest import TestCase
+from unittest.mock import patch
+
 from src.analyze.email_detector import EmailDetector
 
 
 class TestEmailDetector(TestCase):
 
-    def test_default_property_values_are_correct(self):
-        email_detector = EmailDetector()
-        self.assertEqual("EMAIL", email_detector.name)
-        self.assertEqual("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+", email_detector.pattern)
+    def setUp(self):
+        self.email_detector = EmailDetector()
 
+    def test_get_name_returns_the_valid_detector_name(self):
+        self.assertEqual(self.email_detector.get_name(), "EMAIL")
+
+    @patch("re.compile")
+    def test_get_pattern_returns_compiled_regex(self, mock_compile):
+        actual_value = self.email_detector.get_pattern()
+        mock_compile.assert_called_with("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+")
+        self.assertEqual(mock_compile.return_value, actual_value)
+
+    def test_valid_email_gets_detected_correctly(self):
+        self.assertEqual(len(self.email_detector.execute("abc@hotmail.com")), 1)
+
+    def test_invalid_email_does_not_get_detected(self):
+        self.assertEqual(len(self.email_detector.execute("@hotmail.com")), 0)
