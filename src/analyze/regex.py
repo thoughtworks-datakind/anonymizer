@@ -13,6 +13,10 @@ class RegEx:
         if start > end:
             raise ValueError("Range start should be less than end")
 
+    def boundary(self):
+        self.regex_string += "\\b"
+        return self
+
     def pipe(self):
         self.regex_string += "|"
         return self

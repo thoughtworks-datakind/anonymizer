@@ -80,6 +80,10 @@ class TestRegEx(TestCase):
     def test_when_valid_input_is_passed_literal_returns_correct_output(self):
         self.assertEqual("@", RegEx().literal("@").build())
 
+    # Testing boundary
+    def test_boundary(self):
+        self.assertEqual("\\b", RegEx().boundary().build())
+
     # Testing complex inputs
     def test_builds_correct_pattern_for_NRIC(self):
         self.assertEqual("[AIR]\\d{7}[A-Z]",
