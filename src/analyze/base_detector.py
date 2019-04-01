@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 import re
 from src.analyze.analyzer_result import AnalyzerResult
 
+
 class BaseDetector(ABC):
 
     def __init__(self):
@@ -22,10 +23,8 @@ class BaseDetector(ABC):
     def execute(self, input):
         results = []
         matches = re.finditer(self.get_pattern(), input)
-        #TODO simplify this a bit more
         for match in matches:
-            start, end = match.span()
-            pattern_match = input[start:end]
-            if self.validate(pattern_match):
-                results.append(AnalyzerResult(pattern_match, self.get_name(), start, end))
+            matched_string = match.string[match.start(): match.end()]
+            if self.validate(matched_string):
+                results.append(AnalyzerResult(matched_string, self.get_name(), match.start(), match.end()))
         return results
