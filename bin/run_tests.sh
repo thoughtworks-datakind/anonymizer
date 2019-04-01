@@ -5,4 +5,4 @@ project_path=$(dirname $0)/..
 export PYTHONPATH=$project_path
 
 coverage run --source='./src' --omit='*/tests/*' -m unittest discover .
-coverage report
+coverage report -m

@@ -16,26 +16,30 @@ class NationalIdDetector(BaseDetector):
     def get_pattern(self):
         return re.compile(self.pattern)
 
-    def validate(self, text):
-        first_character = text[0]
+    def __get_offset(self, text):
+        return 4 if text in "TG" else 0
 
-        weight = self.__get_weight(text)
-        offset = 4 if first_character in "TG" else 0
-        loc = (offset + weight) % 11
-
-        if first_character in "ST":
+    def __is_NRIC(self, text, loc):
+        if text[0] in "ST":
             return "JZIHGFEDCBA"[loc] == text[8]
-        if first_character in "FG":
-            return "XWUTRQPNMLK"[loc] == text[8]
+        return False
 
-    @staticmethod
-    def __get_weight(text):
+    def __is_FIN(self, text, loc):
+        if text[0] in "FG":
+            return "XWUTRQPNMLK"[loc] == text[8]
+        return False
+
+    def validate(self, text):
+        weight = self.__get_weight(text)
+        first_character = text[0]
+        offset = self.__get_offset(first_character)
+        loc = (offset + weight) % 11
+        return self.__is_NRIC(text, loc) or self.__is_FIN(text, loc)
+
+    def __get_weight(self, text):
         numbers = [int(digit) for digit in list(text[1:-1])]
-        numbers[0] *= 2
-        numbers[1] *= 7
-        numbers[2] *= 6
-        numbers[3] *= 5
-        numbers[4] *= 4
-        numbers[5] *= 3
-        numbers[6] *= 2
+        for index, i in enumerate(numbers):
+            if index == 0:
+                numbers[index] *= 2
+            numbers[index] *= 8 - index
         return sum(numbers)

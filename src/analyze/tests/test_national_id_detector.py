@@ -11,8 +11,26 @@ class TestNationalIdDetector(TestCase):
         self.assertEqual("NRIC", self.national_id_detector.name)
         self.assertEqual("[STFG]\\d{7}[A-Z]", self.national_id_detector.pattern)
 
-    def test_additional_checks_should_return_true_when_given_valid_input(self):
+    def test_execute_return_true_when_valid_old_NRIC(self):
         self.assertTrue(self.national_id_detector.validate("S0000001I"))
 
-    def test_additional_checks_should_return_true_when_given_invalid_input(self):
+    def test_execute_return_true_when_valid_old_FIN(self):
+        self.assertTrue(self.national_id_detector.validate("F0000001U"))
+
+    def test_execute_return_true_when_valid_new_NRIC(self):
+        self.assertTrue(self.national_id_detector.validate("T0000001E"))
+
+    def test_execute_return_true_when_valid_new_FIN(self):
+        self.assertTrue(self.national_id_detector.validate("G0000001P"))
+
+    def test_execute_return_false_when_invalid_old_NRIC(self):
         self.assertFalse(self.national_id_detector.validate("S0000001K"))
+
+    def test_execute_return_false_when_invalid_new_NRIC(self):
+        self.assertFalse(self.national_id_detector.validate("F0000001V"))
+
+    def test_execute_return_false_when_invalid_old_FIN(self):
+        self.assertFalse(self.national_id_detector.validate("T0000001F"))
+
+    def test_execute_return_false_when_invalid_new_FIN(self):
+        self.assertFalse(self.national_id_detector.validate("G0000001Q"))
