@@ -2,6 +2,7 @@ from src.analyze.national_id_detector import NationalIdDetector
 from src.analyze.email_detector import EmailDetector
 from src.analyze.phone_number_detector import PhoneNumberDetector
 
+
 class PIIDetector:
 
     def __init__(self):
