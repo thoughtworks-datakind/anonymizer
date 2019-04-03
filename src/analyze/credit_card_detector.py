@@ -20,7 +20,6 @@ class CreditCardDetector(BaseDetector):
             .one_of("- ").zero_or_one_occurrences() \
             .any_digit().range_occurrences(3, 5).build()
 
-
     def get_name(self):
         return self.name
 
