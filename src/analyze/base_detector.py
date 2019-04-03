@@ -17,12 +17,12 @@ class BaseDetector(ABC):
     def get_name(self):
         pass
 
-    def validate(self, input):
+    def validate(self, text):
         return True
 
-    def execute(self, input):
+    def execute(self, text):
         results = []
-        matches = re.finditer(self.get_pattern(), input)
+        matches = re.finditer(self.get_pattern(), text)
         for match in matches:
             matched_string = match.string[match.start(): match.end()]
             if self.validate(matched_string):
