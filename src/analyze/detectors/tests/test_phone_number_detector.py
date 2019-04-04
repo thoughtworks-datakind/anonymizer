@@ -1,6 +1,7 @@
 from unittest import TestCase
-from src.analyze.phone_number_detector import PhoneNumberDetector
-from src.analyze.analyzer_result import AnalyzerResult
+
+from src.analyze.detectors.phone_number_detector import PhoneNumberDetector
+from src.analyze.utils.analyzer_result import AnalyzerResult
 
 
 class TestPhoneNumberDetector(TestCase):

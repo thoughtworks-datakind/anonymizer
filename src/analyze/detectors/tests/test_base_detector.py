@@ -1,8 +1,9 @@
 from unittest import TestCase
 
-from src.analyze.analyzer_result import AnalyzerResult
-from src.analyze.regex import RegEx
-from src.analyze.base_detector import BaseDetector
+
+from src.analyze.detectors.base_detector import BaseDetector
+from src.analyze.utils.analyzer_result import AnalyzerResult
+from src.analyze.utils.regex import RegEx
 
 
 class TestBaseDetector(TestCase):

@@ -1,5 +1,6 @@
-from src.analyze.analyzer_result import AnalyzerResult
 from unittest import TestCase
+
+from src.analyze.utils.analyzer_result import AnalyzerResult
 
 
 class TestAnalyzerResult(TestCase):

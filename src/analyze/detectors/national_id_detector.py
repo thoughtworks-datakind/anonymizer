@@ -1,8 +1,7 @@
 import re
 
-from src.analyze.base_detector import BaseDetector
-from src.analyze.regex import RegEx
-
+from src.analyze.detectors.base_detector import BaseDetector
+from src.analyze.utils.regex import RegEx
 
 class NationalIdDetector(BaseDetector):
 

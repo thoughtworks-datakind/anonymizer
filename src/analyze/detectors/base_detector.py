@@ -1,6 +1,7 @@
-from abc import ABC, abstractmethod
 import re
-from src.analyze.analyzer_result import AnalyzerResult
+from abc import ABC, abstractmethod
+
+from src.analyze.utils.analyzer_result import AnalyzerResult
 
 
 class BaseDetector(ABC):

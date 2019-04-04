@@ -1,7 +1,7 @@
 from unittest import TestCase
 from unittest.mock import patch
 
-from src.analyze.email_detector import EmailDetector
+from src.analyze.detectors.email_detector import EmailDetector
 
 
 class TestEmailDetector(TestCase):

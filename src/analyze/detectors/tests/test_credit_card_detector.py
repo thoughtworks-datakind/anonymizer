@@ -1,5 +1,6 @@
 from unittest import TestCase
-from src.analyze.credit_card_detector import CreditCardDetector
+
+from src.analyze.detectors.credit_card_detector import CreditCardDetector
 
 
 class TestCreditCardDetector(TestCase):
