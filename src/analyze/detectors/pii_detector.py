@@ -2,9 +2,13 @@ import importlib
 import pkgutil
 import inspect
 import sys
+
+import pandas as pd
+
 import src.analyze.detectors
 from src.analyze.detectors.base_detector import BaseDetector
 
+#TODO : refactor this to use the annotations instead of the module path.
 
 class PIIDetector:
 
@@ -29,6 +33,13 @@ class PIIDetector:
                     detectors.append(class_type())
         return detectors
 
+    #TODO : Should we make this static?
     def analyze(self, text):
         return [match for detector in self.get_detector_instances() for match in detector.execute(text)]
 
+    def analyze_data_frame(self, input_data_frame):
+        result_df = pd.DataFrame()
+        columns = list(input_data_frame)
+        for col in columns:
+            result_df[col] = input_data_frame[col].apply(self.analyze)
+        return result_df

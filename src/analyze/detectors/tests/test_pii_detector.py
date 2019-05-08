@@ -1,3 +1,4 @@
+import pandas as pd
 from unittest import TestCase
 
 from src.analyze.detectors.pii_detector import PIIDetector
@@ -32,3 +33,9 @@ class TestPIIDetector(TestCase):
         results = self.pii_detector.analyze("""First President of Singapore NRIC was ABC.
                                          A typical email id would look something like test""")
         self.assertEqual(len(results), 0)
+
+    def test_analyze_data_frame_runs_analyze_against_each_cell(self):
+        test_data_frame = pd.DataFrame({"summary" : ["First President of Singapore NRIC was S0000001I", "A typical email id would look something like test@sample.com"],
+                                       "phone number" : ["Some examples of phone numbers are +65 62345678", "Some examples of phone numbers are +65 62345678"]})
+        result_data_frame = self.pii_detector.analyze_data_frame(test_data_frame)
+        print(str(result_data_frame))

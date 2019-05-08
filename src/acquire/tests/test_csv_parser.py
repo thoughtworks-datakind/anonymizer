@@ -9,22 +9,24 @@ class TestCsvParser(TestCase):
     def setUp(self):
         self.current_dir = os.path.dirname(os.path.realpath(__file__))
 
-    def test_if_file_path_is_empty_throws_error(self):
-        test_csv_parser_empty_file_path = CsvParser(input_path="")
-        self.assertRaises(FileNotFoundError, lambda: test_csv_parser_empty_file_path.parse())
-
-    def test_if_invalid_file_path_provided_throws_error(self):
-        test_csv_parser_invalid_file_path = CsvParser(input_path="invalid_file_path")
-        self.assertRaises(FileNotFoundError, lambda: test_csv_parser_invalid_file_path.parse())
+    def test_invalid_config_gets_caught_during_initialization(self):
+        context = {}
+        with self.assertRaises(ValueError) as ve:
+            CsvParser(config=context)
+        self.assertEqual(str(ve.exception), "Config 'file_path' needs to be provided for parsing")
 
     def test_if_valid_csv_file_provided_returns_pandas_df(self):
-        test_csv_parser_valid_file_path = CsvParser(input_path="{}/data/comma_delimited_file.csv".format(self.current_dir))
+        file_path = "{}/data/comma_delimited_file.csv".format(self.current_dir)
+        config = {"file_path" : file_path, "delimiter" : ""}
+        test_csv_parser_valid_file_path = CsvParser(config=config)
         expected = pd.DataFrame({"name": ["Lisa Beard"], "ssn": ["557-39-2479"]})
         actual = test_csv_parser_valid_file_path.parse()
         self.assertEqual(actual.to_dict(), expected.to_dict())
 
     def test_if_valid_csv_file_with_different_delimiter_provided_returns_pandas_df(self):
-        test_csv_parser_valid_file_path = CsvParser(input_path="{}/data/pipe_delimited_file.csv".format(self.current_dir), delimiter="|")
+        file_path = "{}/data/pipe_delimited_file.csv".format(self.current_dir)
+        config = {"file_path" : file_path, "delimiter" : "|"}
+        test_csv_parser_valid_file_path = CsvParser(config=config)
         expected = pd.DataFrame({"name": ["Lisa Beard"], "ssn": ["557-39-2479"]})
         actual = test_csv_parser_valid_file_path.parse()
         self.assertEqual(actual.to_dict(), expected.to_dict())
