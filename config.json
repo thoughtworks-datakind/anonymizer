@@ -1,0 +1,10 @@
+{
+  "acquire": {
+    "file_path": "/Users/sowmya/workspace/datakind/anonymizer/test_data.csv",
+    "delimiter": ","
+  },
+  "analyze": {
+  },
+  "anonymize": {
+  }
+}

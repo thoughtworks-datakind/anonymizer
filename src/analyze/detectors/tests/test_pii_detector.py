@@ -38,4 +38,7 @@ class TestPIIDetector(TestCase):
         test_data_frame = pd.DataFrame({"summary" : ["First President of Singapore NRIC was S0000001I", "A typical email id would look something like test@sample.com"],
                                        "phone number" : ["Some examples of phone numbers are +65 62345678", "Some examples of phone numbers are +65 62345678"]})
         result_data_frame = self.pii_detector.analyze_data_frame(test_data_frame)
+        expected_data_frame = pd.DataFrame({"summary" : [AnalyzerResult("S0000001I", "NRIC", 38, 47), AnalyzerResult("test@sample.com", "EMAIL", 45, 60)],
+                                            "phone number": [AnalyzerResult("+65 62345678", "PHONE_NUMBER", 35, 47), AnalyzerResult("+65 62345678", "PHONE_NUMBER", 35, 47)]})
+        self.assertCountEqual(list(expected_data_frame), list(result_data_frame))
         print(str(result_data_frame))
