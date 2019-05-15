@@ -16,7 +16,7 @@ class DPFMain():
         csv_parser = CsvParser(config=self.config[ACQUIRE])
         parsed_data_frame = csv_parser.parse()
         pii_detector = PIIDetector()
-        pii_analysis_report = pii_detector.analyze(parsed_data_frame)
+        pii_analysis_report = pii_detector.analyze_data_frame(parsed_data_frame)
         print(str(pii_analysis_report))
 
 def get_args():

@@ -15,4 +15,4 @@ class EmailDetector(BaseDetector):
         return self.name
 
     def get_pattern(self):
-        return re.compile(self.pattern)
+        return self.pattern

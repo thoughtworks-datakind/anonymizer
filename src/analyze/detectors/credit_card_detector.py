@@ -24,7 +24,7 @@ class CreditCardDetector(BaseDetector):
         return self.name
 
     def get_pattern(self):
-        return re.compile(self.pattern)
+        return self.pattern
 
     def validate(self, text):
         def digits_of(n):

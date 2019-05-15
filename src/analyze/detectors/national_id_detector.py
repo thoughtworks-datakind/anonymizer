@@ -13,7 +13,7 @@ class NationalIdDetector(BaseDetector):
         return self.name
 
     def get_pattern(self):
-        return re.compile(self.pattern)
+        return self.pattern
 
     def __get_offset(self, text):
         return 4 if text in "TG" else 0
