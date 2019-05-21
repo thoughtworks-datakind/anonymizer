@@ -33,7 +33,7 @@ class ReportGenerator():
         return detector_map
 
     def __generate_medium_level_report(self, results_df):
-        report_df = pd.DataFrame()
+        report_df = pd.DataFrame({})
         columns = list(results_df)
         column_reports = []
         for column in columns:
@@ -41,7 +41,8 @@ class ReportGenerator():
             column_report = pd.Series(detector_counts_for_each_column, name=column, index=detector_counts_for_each_column.keys())
             if not column_report.empty:
                 column_reports.append(column_report)
-        report_df = pd.concat(column_reports, axis=1, keys=[series.name for series in column_reports], sort=True)
+        if column_reports:
+            report_df = pd.concat(column_reports, axis=1, keys=[series.name for series in column_reports], sort=True)
         return report_df
 
     def __generate_report_content(self, results_df, report_level):

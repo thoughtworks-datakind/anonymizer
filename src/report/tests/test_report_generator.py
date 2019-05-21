@@ -1,6 +1,5 @@
 from unittest import TestCase
 
-import numpy as np
 import pandas as pd
 
 from src.report.report_generator import ReportGenerator, ReportLevel
@@ -12,6 +11,7 @@ class TestReportGenerator(TestCase):
     def setUp(self):
         self.report_generator = ReportGenerator()
 
+    #TODO : change this to take in empty lists for each cell and then consider the dataframe empty
     def test_empty_result_data_frame_returns_empty_report(self):
         result_data_frame = pd.DataFrame({})
         self.assertTrue(self.report_generator.generate(result_data_frame).empty)
