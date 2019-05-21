@@ -34,7 +34,6 @@ class TestDPFMain(TestCase):
         mock_pii_analyze_df.assert_called_with(mock_csv_parser_parse.return_value)
         mock_generate_report.assert_called_with(results_df=mock_pii_analyze_df.return_value,
                                                 report_level=ReportLevel.MEDIUM)
-        self.assertEqual(return_value, mock_generate_report.return_value)
 
 
 
