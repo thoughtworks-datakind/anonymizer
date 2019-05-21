@@ -1,5 +1,4 @@
 from enum import Enum
-
 import pandas as pd
 
 
@@ -8,8 +7,6 @@ class ReportLevel(Enum):
     HIGH = 1
     MEDIUM = 2
     LOW = 3
-
-
 
 class ReportGenerator():
 
@@ -27,7 +24,6 @@ class ReportGenerator():
                 detector_map[detector_type] = 1
             detector_map[detector_type] += 1
         return detector_map
-
 
     def __generate_medium_level_report(self, results_df):
         report_df = pd.DataFrame()
@@ -47,5 +43,4 @@ class ReportGenerator():
             print("There are no PII values in the given input file")
             return results_df
         report = self.__generate_report_content(results_df, report_level)
-        print(report)
         return report

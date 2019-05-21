@@ -1,5 +1,7 @@
 import argparse
 import json
+
+from src.report.report_generator import ReportGenerator, ReportLevel
 from src.acquire.csv_parser import CsvParser
 from src.analyze.detectors.pii_detector import PIIDetector
 from src.constants import ACQUIRE
@@ -11,13 +13,13 @@ class DPFMain():
         with open(config_file_path) as config_file:
             self.config = json.load(config_file)
 
-    #TODO : break this down
     def run(self):
-        csv_parser = CsvParser(config=self.config[ACQUIRE])
-        parsed_data_frame = csv_parser.parse()
-        pii_detector = PIIDetector()
-        pii_analysis_report = pii_detector.analyze_data_frame(parsed_data_frame)
-        print(str(pii_analysis_report))
+        parsed_data_frame = CsvParser(config=self.config[ACQUIRE]).parse()
+        pii_analysis_report = PIIDetector().analyze_data_frame(parsed_data_frame)
+        generated_report = ReportGenerator().generate(results_df=pii_analysis_report,
+                                                      report_level=ReportLevel.MEDIUM)
+        print(generated_report)
+        return generated_report
 
 def get_args():
     parser = argparse.ArgumentParser()

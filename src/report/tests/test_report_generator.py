@@ -1,8 +1,9 @@
-import pandas as pd
-import numpy as np
 from unittest import TestCase
 
-from src.analyze.detectors.report_generator import ReportGenerator, ReportLevel
+import numpy as np
+import pandas as pd
+
+from src.report.report_generator import ReportGenerator, ReportLevel
 from src.analyze.utils.analyzer_result import AnalyzerResult
 
 
