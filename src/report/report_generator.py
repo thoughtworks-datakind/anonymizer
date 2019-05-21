@@ -43,7 +43,7 @@ class ReportGenerator():
                 column_reports.append(column_report)
         if column_reports:
             report_df = pd.concat(column_reports, axis=1, keys=[series.name for series in column_reports], sort=True)
-        return report_df
+        return report_df.fillna(value=0)
 
     def __generate_report_content(self, results_df, report_level):
         if report_level == ReportLevel.HIGH:
