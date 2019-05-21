@@ -23,3 +23,7 @@ class TestAnalyzerResult(TestCase):
     def test_str(self):
         expected = "Text sample_data at position (0,10) was identified as type"
         self.assertEqual(str(AnalyzerResult("sample_data", "type", 0, 10)), expected)
+
+    def test_get_detector_fetches_detector_type_correctly(self):
+        result = AnalyzerResult("text", "EMAIL", 0, 10)
+        self.assertEqual(result.detector(), "EMAIL")

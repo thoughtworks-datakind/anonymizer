@@ -15,3 +15,6 @@ class AnalyzerResult:
 
     def __str__(self):
         return "Text {} at position ({},{}) was identified as {}".format(self.text, self.start, self.end, self.type)
+
+    def detector(self):
+        return self.type
