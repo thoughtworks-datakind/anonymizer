@@ -37,9 +37,14 @@ class PIIDetector:
     def analyze(self, text):
         return [match for detector in self.get_detector_instances() for match in detector.execute(text)]
 
+    def __has_PII_values(self, columns):
+        return any([len(col) > 0 for col in columns])
+
     def analyze_data_frame(self, input_data_frame):
-        result_df = pd.DataFrame()
+        result_df = pd.DataFrame({})
         columns = list(input_data_frame)
         for col in columns:
-            result_df[col] = input_data_frame[col].apply(self.analyze)
+            analyzer_results = input_data_frame[col].apply(self.analyze)
+            if self.__has_PII_values(analyzer_results):
+                result_df[col] = analyzer_results
         return result_df

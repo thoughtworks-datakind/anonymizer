@@ -43,11 +43,8 @@ class TestPIIDetector(TestCase):
         self.assertCountEqual(list(expected_data_frame), list(result_data_frame))
         print(str(result_data_frame))
 
-    def test_analyze_data_frame_runs_analyze_against_each_cell_even_when_there_are_no_PII_values(self):
+    def test_analyze_data_frame_runs_analyze_against_each_cell_even_when_there_are_no_PII_values_returns_empty_data_frame(self):
         test_data_frame = pd.DataFrame({"summary" : ["First President of Singapore NRIC was abcde", "A typical email id would look something like test@t"],
                                         "phone number" : ["Some examples of phone numbers are +34342", "Some examples of phone numbers are +8909"]})
         result_data_frame = self.pii_detector.analyze_data_frame(test_data_frame)
-        expected_data_frame = pd.DataFrame({"summary" : [],
-                                            "phone number": []})
-        self.assertCountEqual(list(expected_data_frame), list(result_data_frame))
-        print(str(result_data_frame))
+        self.assertTrue(result_data_frame.empty)

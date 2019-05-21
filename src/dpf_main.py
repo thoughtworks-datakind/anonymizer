@@ -24,9 +24,12 @@ class DPFMain():
     def run(self):
         parsed_data_frame = CsvParser(config=self.config[ACQUIRE]).parse()
         pii_analysis_report = PIIDetector().analyze_data_frame(parsed_data_frame)
-        generated_report = ReportGenerator().generate(results_df=pii_analysis_report,
+        if pii_analysis_report.empty:
+            final_report = pii_analysis_report
+        else:
+            final_report = ReportGenerator().generate(results_df=pii_analysis_report,
                                                       report_level=ReportLevel.MEDIUM)
-        self.__print_report(generated_report)
+        self.__print_report(final_report)
 
 def get_args():
     parser = argparse.ArgumentParser()

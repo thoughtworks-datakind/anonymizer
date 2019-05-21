@@ -52,8 +52,4 @@ class ReportGenerator():
             return self.__generate_medium_level_report(results_df)
 
     def generate(self, results_df, report_level=ReportLevel.HIGH):
-        if results_df.empty:
-            print("There are no PII values in the given input file")
-            return results_df
-        report = self.__generate_report_content(results_df, report_level)
-        return report
+        return self.__generate_report_content(results_df, report_level)
