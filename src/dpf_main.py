@@ -13,23 +13,15 @@ class DPFMain():
         with open(config_file_path) as config_file:
             self.config = json.load(config_file)
 
-    def __print_report(self, report):
-        print("\n\n****************************PII ANALYSIS REPORT**************************\n\n")
-        if report.empty:
-            print("NO PII VALUES WERE FOUND!")
-        else:
-            print(report)
-        print("\n\n****************************DONE!**************************\n\n")
-
     def run(self):
         parsed_data_frame = CsvParser(config=self.config[ACQUIRE]).parse()
         pii_analysis_report = PIIDetector().analyze_data_frame(parsed_data_frame)
         if pii_analysis_report.empty:
-            final_report = pii_analysis_report
+            print("NO PII VALUES WERE FOUND!")
         else:
-            final_report = ReportGenerator().generate(results_df=pii_analysis_report,
-                                                      report_level=ReportLevel.MEDIUM)
-        self.__print_report(final_report)
+            ReportGenerator().generate(results_df=pii_analysis_report,
+                                       report_level=ReportLevel.MEDIUM)
+
 
 def get_args():
     parser = argparse.ArgumentParser()
