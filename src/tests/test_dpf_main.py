@@ -5,8 +5,7 @@ from unittest.mock import patch, MagicMock
 
 import pandas as pd
 
-from src.report.report_generator import ReportLevel
-from src.constants import ACQUIRE
+from src.constants import ACQUIRE, REPORT
 from src.dpf_main import DPFMain
 
 
@@ -19,23 +18,27 @@ class TestDPFMain(TestCase):
             self.config_json = json.load(input_file)
 
     @patch('src.report.report_generator.ReportGenerator.generate')
+    @patch('src.report.report_generator.ReportGenerator.__init__')
     @patch('src.analyze.detectors.pii_detector.PIIDetector.analyze_data_frame')
     @patch('src.acquire.csv_parser.CsvParser.parse')
     @patch('src.acquire.csv_parser.CsvParser.__init__')
     def test_run_parses_the_config_file_and_invokes_respective_stages_correctly(self, mock_csv_parser_init,
                                                                                 mock_csv_parser_parse,
                                                                                 mock_pii_analyze_df,
+                                                                                mock_report_generator_init,
                                                                                 mock_generate_report):
         mock_csv_parser_init.return_value = None
         mock_csv_parser_parse.return_value = MagicMock()
         mock_pii_analyze_df.return_value = pd.DataFrame({"summary" : ["test result"]})
+        mock_report_generator_init.return_value = None
         mock_generate_report.return_value = MagicMock()
         self.dpf_main.run()
         mock_csv_parser_init.assert_called_with(config=self.config_json[ACQUIRE])
         mock_csv_parser_parse.assert_called_with()
         mock_pii_analyze_df.assert_called_with(mock_csv_parser_parse.return_value)
-        mock_generate_report.assert_called_with(results_df=mock_pii_analyze_df.return_value,
-                                                report_level=ReportLevel.MEDIUM)
+        mock_report_generator_init.assert_called_with(config=self.config_json[REPORT])
+        mock_generate_report.assert_called_with(results_df=mock_pii_analyze_df.return_value)
+
 
 
     @patch('src.report.report_generator.ReportGenerator.generate')
@@ -50,6 +53,7 @@ class TestDPFMain(TestCase):
         mock_csv_parser_parse.return_value = MagicMock()
         mock_pii_analyze_df.return_value = pd.DataFrame({})
         mock_generate_report.return_value = MagicMock()
+        mock_generate_report.return_value = None
         self.dpf_main.run()
         mock_csv_parser_init.assert_called_with(config=self.config_json[ACQUIRE])
         mock_csv_parser_parse.assert_called_with()

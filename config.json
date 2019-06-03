@@ -4,6 +4,11 @@
     "delimiter": ","
   },
   "analyze": {
+
+  },
+  "report" : {
+    "location" : "/Users/sowmya/workspace/datakind/anonymizer/output",
+    "level" : "high"
   },
   "anonymize": {
   }

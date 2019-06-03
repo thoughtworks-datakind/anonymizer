@@ -1,10 +1,10 @@
 import argparse
 import json
 
-from src.report.report_generator import ReportGenerator, ReportLevel
+from src.report.report_generator import ReportGenerator
 from src.acquire.csv_parser import CsvParser
 from src.analyze.detectors.pii_detector import PIIDetector
-from src.constants import ACQUIRE
+from src.constants import ACQUIRE, REPORT
 
 
 class DPFMain():
@@ -13,14 +13,16 @@ class DPFMain():
         with open(config_file_path) as config_file:
             self.config = json.load(config_file)
 
+    #TODO : validate the config for the stages right here
     def run(self):
         parsed_data_frame = CsvParser(config=self.config[ACQUIRE]).parse()
         pii_analysis_report = PIIDetector().analyze_data_frame(parsed_data_frame)
         if pii_analysis_report.empty:
             print("NO PII VALUES WERE FOUND!")
         else:
-            ReportGenerator().generate(results_df=pii_analysis_report,
-                                       report_level=ReportLevel.MEDIUM)
+            ReportGenerator(config=self.config[REPORT])\
+                            .generate(results_df=pii_analysis_report,
+                                       )
 
 
 def get_args():

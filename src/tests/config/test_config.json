@@ -5,6 +5,10 @@
   },
   "analyze": {
   },
+  "report" : {
+    "location" : "/Users/sowmya/workspace/datakind/anonymizer/report",
+    "level" : "high"
+  },
   "anonymize": {
   }
 }
