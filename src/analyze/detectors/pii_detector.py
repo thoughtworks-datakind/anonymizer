@@ -7,9 +7,11 @@ import pandas as pd
 
 import src.analyze.detectors
 from src.analyze.detectors.base_detector import BaseDetector
+from src.anonymize.drop_anonymizer import DropAnonymizer
+from src.anonymize.anonymizer_result import AnonymizerResult
+
 
 #TODO : refactor this to use the annotations instead of the module path.
-
 class PIIDetector:
 
     def __init__(self):
@@ -34,17 +36,26 @@ class PIIDetector:
         return detectors
 
     #TODO : Should we make this static?
-    def analyze(self, text):
-        return [match for detector in self.get_detector_instances() for match in detector.execute(text)]
+    def analyze_and_redact(self, text: str):
+        analyzer_results = []
+        for detector in self.get_detector_instances():
+            analyzer_results = analyzer_results + detector.execute(text)
+        redacted_text = DropAnonymizer.redact(text, analyzer_results)
+        return AnonymizerResult(redacted_text, analyzer_results)
 
-    def __has_PII_values(self, columns):
-        return any([len(col) > 0 for col in columns])
+    def __contains_pii(self, results):
+        for result in results:
+            if len(result.analyzer_results) > 0:
+                return True
+        return False
 
     def analyze_data_frame(self, input_data_frame):
         result_df = pd.DataFrame({})
         columns = list(input_data_frame)
         for col in columns:
-            analyzer_results = input_data_frame[col].apply(self.analyze)
-            if self.__has_PII_values(analyzer_results):
-                result_df[col] = analyzer_results
-        return result_df
+            anonymizer_results = input_data_frame[col].apply(self.analyze_and_redact)
+            if self.__contains_pii(anonymizer_results):
+                result_df[col] = anonymizer_results
+
+        return {"analyzer_results": result_df.applymap(lambda x: x.analyzer_results),
+                "redacted_text": result_df.applymap(lambda x: x.redacted_text)}
