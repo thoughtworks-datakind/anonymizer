@@ -1,10 +1,9 @@
 # Data Protection Framework
-Data Protection Framework is a python library/command line application for identification, anonymization and de-anonymization of Personally Identifiable Information data
-desktop.
+Data Protection Framework is a python library/command line application for identification, anonymization and de-anonymization of Personally Identifiable Information data.
 
 The framework aims to work on a two-fold principle for detecting PII:
-1. Using RegularExpressions who have a pattern
-2. Using NLP for detecting NER
+1. Using RegularExpressions using a pattern
+2. Using NLP for detecting NER (Named Entity Recognitions)
  
 ## Features and Current Status
 
