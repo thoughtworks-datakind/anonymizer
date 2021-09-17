@@ -58,7 +58,7 @@ class TestPIIDetector(TestCase):
                                             "phone number": [[AnalyzerResult("+65 62345678", "PHONE_NUMBER", 35, 47)],
                                                              [AnalyzerResult("+65 62345678", "PHONE_NUMBER", 35, 47)]]})
 
-        pd.testing.assert_frame_equal(expected_data_frame, actual["analyzer_results"])
+        pd.testing.assert_frame_equal(expected_data_frame, actual)
 
     def test_analyze_data_frame_runs_analyze_against_each_cell_when_there_are_no_PII_values_returns_empty_data_frame(
             self):
@@ -67,4 +67,4 @@ class TestPIIDetector(TestCase):
                                         "phone number": ["Some examples of phone numbers are +34342",
                                                          "Some examples of phone numbers are +8909"]})
         result_data_frame = self.pii_detector.analyze_data_frame(test_data_frame)
-        self.assertTrue(result_data_frame["analyzer_results"].empty)
+        self.assertTrue(result_data_frame.empty)

@@ -50,10 +50,19 @@ You can run the tests by triggering shell script located at `<PROJECT_ROOT>/bin/
 
 ### Trying out on local
 
-##### CSV
-```bash
+##### Anonymizing a delimited csv file
+1. Set up a JSON config file similar to the one seen at the project root. 
+In the 'acquire' section of the json, populate the input file path and the delimiter.
+In the 'report' section, provide the output path, where you want the PII detection report to be generated.
+A 'high' level report just calls out which columns have PII attributes.
+A 'medium' level report calls out the percentage of PII in each column and the associated PII (email, credit card, etc)type for the same.
+2. Ensure the PYTHON_PATH is set so that the modules within src are accessible. 
+`EXPORT PYTHON_PATH=<Project Root>`
+3. Run the main class - `python src/dpf_main.py --config <absolute path of the config file>`
+You should see the report being appended to the file named 'report_\<date\>.log' in the output path specified in the 
+config file.
 
-```
+
 
 ### Licensing
 Distributed under the MIT license. See ``LICENSE`` for more information.

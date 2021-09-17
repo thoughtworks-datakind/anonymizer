@@ -1,14 +1,14 @@
 {
   "acquire": {
-    "file_path": "/Users/sowmya/workspace/datakind/anonymizer/test_data.csv",
+    "file_path": "/Users/sowmya/workspace/anonymizer/test_data.csv",
     "delimiter": ","
   },
   "analyze": {
 
   },
   "report" : {
-    "location" : "/Users/sowmya/workspace/datakind/anonymizer/output",
-    "level" : "high"
+    "location" : "/Users/sowmya/workspace/anonymizer/output",
+    "level" : "medium"
   },
   "anonymize": {
   }
