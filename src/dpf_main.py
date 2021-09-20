@@ -1,3 +1,7 @@
+import os
+import sys
+sys.path.append(os.path.abspath('.'))
+
 import argparse
 import json
 
@@ -16,13 +20,14 @@ class DPFMain():
     #TODO : validate the config for the stages right here
     def run(self):
         parsed_data_frame = CsvParser(config=self.config[ACQUIRE]).parse()
-        pii_analysis_report = PIIDetector().analyze_data_frame(parsed_data_frame)
+        pii_analysis_report, redacted_data_frame = PIIDetector().analyze_data_frame(parsed_data_frame)
         if pii_analysis_report.empty:
             print("NO PII VALUES WERE FOUND!")
         else:
             ReportGenerator(config=self.config[REPORT])\
                             .generate(results_df=pii_analysis_report,
                                        )
+        redacted_data_frame.to_csv('output.csv',index=False)
 
 
 def get_args():

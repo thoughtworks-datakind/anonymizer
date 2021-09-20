@@ -56,5 +56,5 @@ class PIIDetector:
             anonymizer_results = input_data_frame[col].apply(self.analyze_and_redact)
             if self.__contains_pii(anonymizer_results):
                 result_df[col] = anonymizer_results
-
-        return result_df.applymap(lambda x: x.analyzer_results)
+        
+        return result_df.applymap(lambda x: x.analyzer_results), result_df.applymap(lambda x: x.redacted_text)

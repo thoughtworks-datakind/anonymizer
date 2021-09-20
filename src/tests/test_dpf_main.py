@@ -29,7 +29,7 @@ class TestDPFMain(TestCase):
                                                                                 mock_generate_report):
         mock_csv_parser_init.return_value = None
         mock_csv_parser_parse.return_value = MagicMock()
-        mock_pii_analyze_df.return_value = pd.DataFrame({"summary" : ["test result"]})
+        mock_pii_analyze_df.return_value = (pd.DataFrame({"summary" : ["test result"]}), pd.DataFrame({}))
         mock_report_generator_init.return_value = None
         mock_generate_report.return_value = MagicMock()
         self.dpf_main.run()
@@ -37,7 +37,7 @@ class TestDPFMain(TestCase):
         mock_csv_parser_parse.assert_called_with()
         mock_pii_analyze_df.assert_called_with(mock_csv_parser_parse.return_value)
         mock_report_generator_init.assert_called_with(config=self.config_json[REPORT])
-        mock_generate_report.assert_called_with(results_df=mock_pii_analyze_df.return_value)
+        mock_generate_report.assert_called_with(results_df=mock_pii_analyze_df.return_value[0])
 
 
 
@@ -51,7 +51,7 @@ class TestDPFMain(TestCase):
                                                                                 mock_generate_report):
         mock_csv_parser_init.return_value = None
         mock_csv_parser_parse.return_value = MagicMock()
-        mock_pii_analyze_df.return_value = pd.DataFrame({})
+        mock_pii_analyze_df.return_value = (pd.DataFrame({}), pd.DataFrame({}))
         mock_generate_report.return_value = MagicMock()
         mock_generate_report.return_value = None
         self.dpf_main.run()
