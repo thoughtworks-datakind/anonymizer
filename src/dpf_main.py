@@ -9,6 +9,7 @@ from src.report.report_generator import ReportGenerator
 from src.acquire.csv_parser import CsvParser
 from src.analyze.detectors.pii_detector import PIIDetector
 from src.constants import ACQUIRE, REPORT
+from src.write.csv_writer import CsvWriter
 
 
 class DPFMain():
@@ -23,12 +24,15 @@ class DPFMain():
         pii_analysis_report, redacted_data_frame = PIIDetector().analyze_data_frame(parsed_data_frame)
         if pii_analysis_report.empty:
             print("NO PII VALUES WERE FOUND!")
+            CsvWriter(config=self.config).write_csv(df=parsed_data_frame)
         else:
             ReportGenerator(config=self.config[REPORT])\
                             .generate(results_df=pii_analysis_report,
                                        )
-        redacted_data_frame.to_csv('output.csv',index=False)
+            CsvWriter(config=self.config).write_csv(df=redacted_data_frame)
 
+        
+# output_directory needs to be obtained from the config json file as a parameter in the 'anonymize' section.
 
 def get_args():
     parser = argparse.ArgumentParser()

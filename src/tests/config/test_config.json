@@ -1,14 +1,15 @@
 {
   "acquire": {
-    "file_path": "/Users/sowmya/workspace/datakind/anonymizer/src/acquire/tests/data/comma_delimited_file.csv",
+    "file_path": "/Users/wisuchoi/Documents/anonymizer/src/acquire/tests/data/comma_delimited_file.csv",
     "delimiter": ","
   },
   "analyze": {
   },
   "report" : {
-    "location" : "/Users/sowmya/workspace/datakind/anonymizer/report",
+    "location" : "/Users/wisuchoi/Documents/anonymizer/report",
     "level" : "high"
   },
   "anonymize": {
+    "output_file_path" : "/Users/wisuchoi/Documents/anonymizer/output"
   }
 }
