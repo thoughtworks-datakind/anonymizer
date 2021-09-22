@@ -51,10 +51,17 @@ class PIIDetector:
 
     def analyze_data_frame(self, input_data_frame):
         result_df = pd.DataFrame({})
-        columns = list(input_data_frame)
+        columns = input_data_frame.columns
         for col in columns:
             anonymizer_results = input_data_frame[col].apply(self.analyze_and_redact)
             if self.__contains_pii(anonymizer_results):
                 result_df[col] = anonymizer_results
+
+        redacted_data_frame = result_df.applymap(lambda x: x.redacted_text)
+        redacted_columns = redacted_data_frame.columns
+        for col in columns:
+            if col in redacted_columns:
+                input_data_frame[col] = redacted_data_frame[col]
+            
         
-        return result_df.applymap(lambda x: x.analyzer_results), result_df.applymap(lambda x: x.redacted_text)
+        return result_df.applymap(lambda x: x.analyzer_results), input_data_frame
