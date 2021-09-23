@@ -15,5 +15,12 @@ class CsvParser:
             raise ValueError("Config 'file_path' needs to be provided for parsing")
 
     def parse(self):
-        df = pd.read_csv(self.input_path, self.delimiter)
+        try:
+            df = pd.read_csv(self.input_path, self.delimiter)
+        except pd.errors.EmptyDataError:
+            return pd.DataFrame({})
+        
+        if df.isnull().values.any():
+            raise ValueError("Dataframe contains NULL values")
+
         return df
