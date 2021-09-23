@@ -23,3 +23,4 @@ class CsvWriter:
 
     def write_csv(self, df: DataFrame):
         df.to_csv(self.get_output_file_path(), index=False)
+        print("Anonymized csv has been successfully created!")

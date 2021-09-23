@@ -73,7 +73,7 @@ class TestDPFMain(TestCase):
         mock_pii_analyze_df.assert_called_with(mock_csv_parser_parse.return_value)
         mock_generate_report.assert_not_called()
         mock_csv_writer_init.assert_called_with(config=self.config_json)
-        mock_csv_writer_write_csv.assert_called_with(df=mock_csv_parser_parse.return_value)
+        mock_csv_writer_write_csv.assert_called_with(df=mock_pii_analyze_df.return_value[1])
 
 
 
