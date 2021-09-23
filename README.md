@@ -44,8 +44,27 @@ _Assuming that $pwd is where you cloned the repo_
 
 ### Config JSON
 An example for the config JSON is located at `<PROJECT_ROOT>/config.json`
+```
+{
+  "acquire": {
+    "file_path": <FILE PATH TO YOUR INPUT CSV>,
+    "delimiter": <YOUR CSV DELIMITER>
+  },
+  "analyze": {
+
+  },
+  "report" : {
+    "location" : <PATH TO YOUR REPORT OUTPUT FOLDER>,
+    "level" : <LOG LEVEL>
+  },
+  "anonymize": {
+    "output_file_path" : <PATH TO YOUR CSV OUTPUT FOLDER>
+  }
+}
+```
 
 ### Running Tests
+Update this file first `<PROJECT_ROOT>/src/tests/config/test_config.json` \
 You can run the tests by triggering shell script located at `<PROJECT_ROOT>/bin/run_tests.sh`
 
 ### Trying out on local
@@ -56,9 +75,7 @@ In the 'acquire' section of the json, populate the input file path and the delim
 In the 'report' section, provide the output path, where you want the PII detection report to be generated.
 A 'high' level report just calls out which columns have PII attributes.
 A 'medium' level report calls out the percentage of PII in each column and the associated PII (email, credit card, etc)type for the same.
-2. Ensure the PYTHON_PATH is set so that the modules within src are accessible. 
-`EXPORT PYTHON_PATH=<Project Root>`
-3. Run the main class - `python src/dpf_main.py --config <absolute path of the config file>`
+2. Run the main class - `python src/dpf_main.py --config <absolute path of the config file>`
 You should see the report being appended to the file named 'report_\<date\>.log' in the output path specified in the 
 config file.
 

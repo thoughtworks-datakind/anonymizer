@@ -1,16 +1,16 @@
 {
   "acquire": {
-    "file_path": "/Users/wisuchoi/Documents/anonymizer/half_pii_value.csv",
+    "file_path": "./anonymizer/test_data.csv",
     "delimiter": ","
   },
   "analyze": {
 
   },
   "report" : {
-    "location" : "/Users/wisuchoi/Documents/anonymizer/output",
+    "location" : "./anonymizer/output",
     "level" : "medium"
   },
   "anonymize": {
-    "output_file_path" : "/Users/wisuchoi/Documents/anonymizer/output"
+    "output_file_path" : "./anonymizer/output"
   }
 }

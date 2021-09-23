@@ -3,5 +3,7 @@
 __pycache__
 *.pyc
 /.venv
+/venv
+/output
 .pytest_cache
 .coverage
