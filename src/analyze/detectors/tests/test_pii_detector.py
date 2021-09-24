@@ -66,8 +66,17 @@ class TestPIIDetector(TestCase):
                                                     "A typical email id would look something like test@t"],
                                         "phone number": ["Some examples of phone numbers are +34342",
                                                          "Some examples of phone numbers are +8909"]})
-        result_data_frame, _ = self.pii_detector.analyze_data_frame(test_data_frame)
-        self.assertTrue(result_data_frame.empty)
+        expected_report = pd.DataFrame({"summary": [[],[]],
+                                        "phone number": [[],[]]
+                                        })
+        expected_result = pd.DataFrame({"summary": ["First President of Singapore NRIC was abcde",
+                                                    "A typical email id would look something like test@t"],
+                                        "phone number": ["Some examples of phone numbers are +34342",
+                                                         "Some examples of phone numbers are +8909"]})
+        actual_report, actual_result = self.pii_detector.analyze_data_frame(test_data_frame)
+        
+        pd.testing.assert_frame_equal(expected_report, actual_report)
+        pd.testing.assert_frame_equal(expected_result, actual_result)
 
     def test_analyze_data_frame_runs_analyze_only_on_cells_with_a_PII_value(self):
         test_data_frame = pd.DataFrame({"summary": ["First President of Singapore NRIC was S0000001I",
@@ -78,8 +87,9 @@ class TestPIIDetector(TestCase):
         actual_report, actual_result = self.pii_detector.analyze_data_frame(test_data_frame)
 
         expected_report = pd.DataFrame({"summary": [[AnalyzerResult("S0000001I", "NRIC", 38, 47)],
-                                                        [AnalyzerResult("test@sample.com", "EMAIL", 45, 60)]]
-                                            })
+                                                        [AnalyzerResult("test@sample.com", "EMAIL", 45, 60)]],
+                                        "remarks": [[],[]]
+                                        })
                                             
         expected_result = pd.DataFrame({"summary": ["First President of Singapore NRIC was ",
                                                     "A typical email id would look something like "],

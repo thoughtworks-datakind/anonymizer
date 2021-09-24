@@ -15,17 +15,17 @@ from src.anonymize.anonymizer_result import AnonymizerResult
 class PIIDetector:
 
     def __init__(self):
-        pass
+        self.detectors = self.__get_detector_instances()
 
-    def get_detector_modules(self):
+    def __get_detector_modules(self):
         modules = [modname for importer, modname, ispkg in
                         pkgutil.walk_packages(path=src.analyze.detectors.__path__,
                                               prefix=src.analyze.detectors.__name__+".")
                    if "tests" not in modname]
         return modules
 
-    def get_detector_instances(self):
-        modules = self.get_detector_modules()
+    def __get_detector_instances(self):
+        modules = self.__get_detector_modules()
         detectors = []
         for module in modules:
             importlib.import_module(module)
@@ -38,7 +38,7 @@ class PIIDetector:
     #TODO : Should we make this static?
     def analyze_and_redact(self, text: str):
         analyzer_results = []
-        for detector in self.get_detector_instances():
+        for detector in self.detectors:
             analyzer_results = analyzer_results + detector.execute(text)
         redacted_text = DropAnonymizer.redact(text, analyzer_results)
         return AnonymizerResult(redacted_text, analyzer_results)
@@ -50,18 +50,5 @@ class PIIDetector:
         return False
 
     def analyze_data_frame(self, input_data_frame):
-        result_df = pd.DataFrame({})
-        columns = input_data_frame.columns
-        for col in columns:
-            anonymizer_results = input_data_frame[col].apply(self.analyze_and_redact)
-            if self.__contains_pii(anonymizer_results):
-                result_df[col] = anonymizer_results
-
-        redacted_data_frame = result_df.applymap(lambda x: x.redacted_text)
-        redacted_columns = redacted_data_frame.columns
-        for col in columns:
-            if col in redacted_columns:
-                input_data_frame[col] = redacted_data_frame[col]
-            
-        
-        return result_df.applymap(lambda x: x.analyzer_results), input_data_frame
+        result_df = input_data_frame.applymap(self.analyze_and_redact)
+        return result_df.applymap(lambda x: x.analyzer_results), result_df.applymap(lambda x: x.redacted_text)
