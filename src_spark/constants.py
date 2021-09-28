@@ -1,0 +1,7 @@
+ACQUIRE="acquire"
+FILE_PATH="file_path"
+ANALYZE="analyze"
+REPORT="report"
+LOCATION="location"
+REPORT_LEVEL="level"
+OUTPUT_FILE_PATH="output_file_path"
