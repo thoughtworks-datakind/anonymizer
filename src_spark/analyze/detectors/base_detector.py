@@ -1,7 +1,8 @@
 import re
 from abc import ABC, abstractmethod
 
-from src.analyze.utils.analyzer_result import AnalyzerResult
+from src_spark.analyze.utils.analyzer_result import AnalyzerResult
+
 
 
 class BaseDetector(ABC):
