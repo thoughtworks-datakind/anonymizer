@@ -1,16 +1,14 @@
 {
   "acquire": {
-    "file_path": "./anonymizer/test_data.csv",
+    "file_path": "./test_data.csv",
     "delimiter": ","
   },
-  "analyze": {
-
-  },
-  "report" : {
-    "location" : "./anonymizer/output",
-    "level" : "medium"
+  "analyze": {},
+  "report": {
+    "location": "./output",
+    "level": "medium"
   },
   "anonymize": {
-    "output_file_path" : "./anonymizer/output"
+    "output_file_path": "./output"
   }
 }
