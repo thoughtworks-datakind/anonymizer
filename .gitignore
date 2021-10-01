@@ -7,3 +7,8 @@ __pycache__
 /output
 .pytest_cache
 .coverage
+pyspark_output
+pyspark_config.json
+*.csv
+generate_fake_data.pyc
+scratchpad.py
