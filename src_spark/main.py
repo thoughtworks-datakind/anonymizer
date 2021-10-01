@@ -28,13 +28,11 @@ class Main():
         parsed_data_frame = CsvParser(spark, config=self.config[ACQUIRE]).parse()
         pii_analysis_report, redacted_data_frame = PIIDetector().analyze_data_frame(parsed_data_frame)
         
-        # pii_analysis_report_pd = pii_analysis_report.toPandas()
-        # if pii_analysis_report_pd.empty:
-        #     print("NO PII VALUES WERE FOUND!")
-        # else:
-        #     ReportGenerator(config=self.config[REPORT])\
-        #                     .generate(results_df=pii_analysis_report_pd,
-        #                                )
+        report_generator = ReportGenerator(config=self.config[REPORT])
+        if report_generator.is_empty_report_dataframe(pii_analysis_report):
+            print("NO PII VALUES WERE FOUND!")
+        else:
+            report_generator.generate(results_df=pii_analysis_report)
         CsvWriter(spark, config=self.config).write_csv(df=redacted_data_frame)
 
         
