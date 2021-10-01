@@ -5,5 +5,7 @@ __pycache__
 /.venv
 /venv
 /output
+/dist
+/build/lib
 .pytest_cache
 .coverage

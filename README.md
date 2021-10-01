@@ -79,6 +79,12 @@ A 'medium' level report calls out the percentage of PII in each column and the a
 You should see the report being appended to the file named 'report_\<date\>.log' in the output path specified in the 
 config file.
 
+### Packaging
+Run `python setup.py bdist_wheel` and the `.whl` file will be created in the `dist` folder.
+
+### Spark-submit
+To run spark-submit locally, you can run the following command
+`spark-submit --py-files dist/SomePackage-*.whl src_spark/main.py --config config.json`
 
 
 ### Licensing
