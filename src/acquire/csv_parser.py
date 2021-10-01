@@ -16,7 +16,7 @@ class CsvParser:
 
     def parse(self):
         try:
-            df = pd.read_csv(self.input_path, self.delimiter)
+            df = pd.read_csv(self.input_path, delimiter=self.delimiter)
         except pd.errors.EmptyDataError:
             return pd.DataFrame({})
         
