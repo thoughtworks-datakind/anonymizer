@@ -98,8 +98,9 @@ class ReportGenerator():
         return self.spark_generate_medium_level_report(results_df)
 
     def __print(self, msg):
-        print(msg)
-        logging.info(msg)
+        formatted_msg = f"\n{msg}"
+        print(formatted_msg)
+        logging.info(formatted_msg)
 
     def __print_report(self, report):
         self.__print("\n\n****************************PII ANALYSIS REPORT**************************\n\n")
