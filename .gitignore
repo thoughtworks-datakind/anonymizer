@@ -9,3 +9,8 @@ __pycache__
 /build/lib
 .pytest_cache
 .coverage
+pyspark_output
+pyspark_config.json
+*.csv
+generate_fake_data.py
+scratchpad.py

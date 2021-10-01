@@ -21,6 +21,7 @@ class ReportGenerator():
         self.report_file_location = config[LOCATION]
         self.report_level = config[REPORT_LEVEL]
         self.setup_logging_config()
+        self.dataframe_is_empty = None
 
     def setup_logging_config(self):
         date = datetime.today().strftime("%Y%m%d")
@@ -70,13 +71,12 @@ class ReportGenerator():
         detector_results = results_df.rdd.flatMap(lambda row: self._get_detector_results(row, columns)).reduceByKey(lambda acc, next: acc + next).collect()
         report_detectors = self.__get_list_of_detectors(detector_results)
         num_rows = results_df.count()
-        pd_series = []
+        pd_columns = []
         for column in columns:
-            detection_stats = self.__get_detection_stats(column=column, report_detectors=report_detectors,
-                                                            detector_results=detector_results,num_rows=num_rows)
-            pd_series.append(pd.Series(data=detection_stats, index=report_detectors, name=column))
-        results_df = pd.concat(pd_series,axis=1).fillna(0)
-        return results_df
+            detection_stats = self.__get_detection_stats(column, report_detectors, detector_results, num_rows)
+            pd_columns.append(pd.Series(data=detection_stats, index=report_detectors, name=column))
+        report_df = pd.concat(pd_columns,axis=1).fillna(0)
+        return report_df
 
     def __get_detection_stats(self, column: list, report_detectors: list, detector_results: list, num_rows: int) -> dict:
         detection_stats = {}
@@ -119,7 +119,9 @@ class ReportGenerator():
         return final_report
 
     def is_empty_report_dataframe(self, results_df: DataFrame) -> bool:
-        return results_df.rdd.flatMap(lambda row: self._row_is_empty_list(row)).reduce(lambda acc, item: acc and item)
+        if self.dataframe_is_empty == None:
+            self.dataframe_is_empty = results_df.rdd.flatMap(lambda row: self._row_is_empty_list(row)).reduce(lambda acc, item: acc and item)
+        return self.dataframe_is_empty
 
     def _row_is_empty_list(self, row: Row) -> map:
         return map(lambda cell: True if cell == [] else False , row)

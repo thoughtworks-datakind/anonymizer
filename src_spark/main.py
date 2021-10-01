@@ -35,9 +35,6 @@ class Main():
             report_generator.generate(results_df=pii_analysis_report)
         CsvWriter(spark, config=self.config).write_csv(df=redacted_data_frame)
 
-        
-# output_directory needs to be obtained from the config json file as a parameter in the 'anonymize' section.
-
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--config-file', help='config file to run the tool')
