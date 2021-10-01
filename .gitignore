@@ -10,5 +10,5 @@ __pycache__
 pyspark_output
 pyspark_config.json
 *.csv
-generate_fake_data.pyc
+generate_fake_data.py
 scratchpad.py
