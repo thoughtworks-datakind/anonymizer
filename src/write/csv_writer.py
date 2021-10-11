@@ -1,6 +1,9 @@
 import pandas as pd
 from pandas import DataFrame
 
+from os import makedirs
+from os.path import exists, dirname
+
 from src.constants import OUTPUT_FILE_PATH, FILE_PATH
 
 
@@ -22,5 +25,9 @@ class CsvWriter:
         return result
 
     def write_csv(self, df: DataFrame):
-        df.to_csv(self.get_output_file_path(), index=False)
+        output_file_path = self.get_output_file_path()
+        if not exists(dirname(output_file_path)):
+            makedirs(dirname(output_file_path), exist_ok=True)
+
+        df.to_csv(output_file_path, index=False)
         print("Anonymized csv has been successfully created!")
